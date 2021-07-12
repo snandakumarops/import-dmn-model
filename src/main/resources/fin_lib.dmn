@@ -1,0 +1,104 @@
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns="https://kiegroup.org/dmn/_79B69A7F-5A25-4B53-BD6A-3216EDC246ED2" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:kie="http://www.drools.org/kie/dmn/1.2" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="_E01B9C96-BCD5-4618-AC02-35F77D1065E2" name="fin_lib" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="https://kiegroup.org/dmn/_79B69A7F-5A25-4B53-BD6A-3216EDC246ED2">
+  <dmn:extensionElements/>
+  <dmn:itemDefinition id="_94619DCD-2602-4A43-97E9-9809D76F15A5" name="tLoan" isCollection="false">
+    <dmn:itemComponent id="_3C8953D0-F1AD-40F6-BC5E-813F3185F3F1" name="amount" isCollection="false">
+      <dmn:typeRef>number</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_1CF9A4C0-9218-4F96-AB1A-66570002B7C5" name="years" isCollection="false">
+      <dmn:typeRef>number</dmn:typeRef>
+    </dmn:itemComponent>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_AC034C7F-6971-49D6-9018-F2C5B02AF57D" name="tCreditScore" isCollection="false">
+    <dmn:typeRef>number</dmn:typeRef>
+    <dmn:allowedValues kie:constraintType="range" id="_C797735B-530F-4FB3-830D-DF29F4272214">
+      <dmn:text>[300..850]</dmn:text>
+    </dmn:allowedValues>
+  </dmn:itemDefinition>
+  <dmn:decisionService id="_78DB4535-A88F-4247-AA2B-0570E84174EF" name="DTI Service">
+    <dmn:extensionElements/>
+    <dmn:variable id="_3EE6EE50-BDCD-423D-8FB9-727CBB3CE4B5" name="DTI Service"/>
+    <dmn:outputDecision href="#_50635164-1A27-4B84-AE16-639A118CE44C"/>
+    <dmn:inputData href="#_516E0AEC-03F3-43F4-B886-C489CA82A1C9"/>
+    <dmn:inputData href="#_65226EA1-EE4A-41F1-91A2-B2A940A75982"/>
+  </dmn:decisionService>
+  <dmn:inputData id="_65226EA1-EE4A-41F1-91A2-B2A940A75982" name="Salary">
+    <dmn:extensionElements/>
+    <dmn:variable id="_204FE05E-BCF8-4AF5-AD36-B5A04E0EB929" name="Salary" typeRef="number"/>
+  </dmn:inputData>
+  <dmn:inputData id="_516E0AEC-03F3-43F4-B886-C489CA82A1C9" name="Loan">
+    <dmn:extensionElements/>
+    <dmn:variable id="_90456001-E9FA-4DDC-B2BA-DF1B62A25AAA" name="Loan" typeRef="tLoan"/>
+  </dmn:inputData>
+  <dmn:decision id="_50635164-1A27-4B84-AE16-639A118CE44C" name="DTI">
+    <dmn:extensionElements/>
+    <dmn:variable id="_7FF18790-80C8-4124-9BFB-93383CE6A50F" name="DTI" typeRef="number"/>
+    <dmn:informationRequirement id="_7A538A2F-562E-4E49-B5F0-572FFCFEF4CB">
+      <dmn:requiredInput href="#_516E0AEC-03F3-43F4-B886-C489CA82A1C9"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement id="_E508941C-2DE2-41DD-8406-EA8AD646DB7F">
+      <dmn:requiredInput href="#_65226EA1-EE4A-41F1-91A2-B2A940A75982"/>
+    </dmn:informationRequirement>
+    <dmn:literalExpression id="_60A349DD-1F30-488B-BA65-74160F6496F3">
+      <dmn:text>(Loan.amount / Loan.years)/Salary</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_E8F34173-5A17-4B9E-936F-72CFCF1210C4" name="DRG">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_60A349DD-1F30-488B-BA65-74160F6496F3">
+            <kie:width>300</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape xmlns:p0="https://kiegroup.org/dmn/_79B69A7F-5A25-4B53-BD6A-3216EDC246ED" id="dmnshape-drg-_78DB4535-A88F-4247-AA2B-0570E84174EF" dmnElementRef="p0:_78DB4535-A88F-4247-AA2B-0570E84174EF" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="403" y="228" width="200" height="200"/>
+        <dmndi:DMNLabel/>
+        <dmndi:DMNDecisionServiceDividerLine>
+          <di:waypoint x="403" y="328"/>
+          <di:waypoint x="603" y="328"/>
+        </dmndi:DMNDecisionServiceDividerLine>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape xmlns:p1="https://kiegroup.org/dmn/_79B69A7F-5A25-4B53-BD6A-3216EDC246ED" id="dmnshape-drg-_65226EA1-EE4A-41F1-91A2-B2A940A75982" dmnElementRef="p1:_65226EA1-EE4A-41F1-91A2-B2A940A75982" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="181" y="219" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape xmlns:p2="https://kiegroup.org/dmn/_79B69A7F-5A25-4B53-BD6A-3216EDC246ED" id="dmnshape-drg-_516E0AEC-03F3-43F4-B886-C489CA82A1C9" dmnElementRef="p2:_516E0AEC-03F3-43F4-B886-C489CA82A1C9" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="181" y="319" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape xmlns:p3="https://kiegroup.org/dmn/_79B69A7F-5A25-4B53-BD6A-3216EDC246ED" id="dmnshape-drg-_50635164-1A27-4B84-AE16-639A118CE44C" dmnElementRef="p3:_50635164-1A27-4B84-AE16-639A118CE44C" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="451" y="267" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge xmlns:p4="https://kiegroup.org/dmn/_79B69A7F-5A25-4B53-BD6A-3216EDC246ED" id="dmnedge-drg-_7A538A2F-562E-4E49-B5F0-572FFCFEF4CB" dmnElementRef="p4:_7A538A2F-562E-4E49-B5F0-572FFCFEF4CB">
+        <di:waypoint x="231" y="344"/>
+        <di:waypoint x="501" y="292"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge xmlns:p5="https://kiegroup.org/dmn/_79B69A7F-5A25-4B53-BD6A-3216EDC246ED" id="dmnedge-drg-_E508941C-2DE2-41DD-8406-EA8AD646DB7F" dmnElementRef="p5:_E508941C-2DE2-41DD-8406-EA8AD646DB7F">
+        <di:waypoint x="231" y="244"/>
+        <di:waypoint x="501" y="292"/>
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</dmn:definitions>
